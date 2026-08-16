@@ -104,8 +104,8 @@ func (c *Client) call(ctx context.Context) error {
 	timer := time.NewTimer(c.latency)
 	defer timer.Stop()
 	select {
-	case <-c.baseCtx.Done():
-		return c.baseCtx.Err()
+	case <-ctx.Done():
+		return ctx.Err()
 	case <-timer.C:
 		return nil
 	}
